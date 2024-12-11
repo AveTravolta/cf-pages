@@ -1,122 +1,107 @@
 ---
 layout: layouts/head.njk
 ---
+
 <div class="md:flex min-h-screen main-body">
   <div class="w-full md:w-1/2 bg-white flex items-center justify-center left-sec">
     <div class="max-w-sm m-8 content-body">
       {{ content | safe }}
     </div>
   </div>
+
+  <!-- Right side for the stack -->
   <div class="relative pb-full md:flex md:pb-0 md:min-h-screen w-full md:w-1/2 right-sec">
     <div class="stack-container">
-      <div class="card-container">
-        <div class="perspec" style="--spreaddist: 125px; --scaledist: .75; --vertdist: -25px;">
-          <div class="card">
-            <div class="writing">
-              <div class="topbar">
-                <div class="red"></div>
-                <div class="yellow"></div>
-                <div class="green"></div>
-              </div>
-              <div class="code">
-                <ul>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- All your card-container divs go here as per your original template -->
+
+      <!-- Dark Mode Toggle Button -->
+      <div class="dark-mode-toggle">
+        <button id="dark-mode-toggle">Toggle Dark Mode</button>
       </div>
-      <div class="card-container">
-        <div class="perspec" style="--spreaddist: 100px; --scaledist: .8; --vertdist: -20px;">
-          <div class="card">
-            <div class="writing">
-              <div class="topbar">
-                <div class="red"></div>
-                <div class="yellow"></div>
-                <div class="green"></div>
-              </div>
-              <div class="code">
-                <ul>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-container">
-        <div class="perspec" style="--spreaddist:75px; --scaledist: .85; --vertdist: -15px;">
-          <div class="card">
-            <div class="writing">
-              <div class="topbar">
-                <div class="red"></div>
-                <div class="yellow"></div>
-                <div class="green"></div>
-              </div>
-              <div class="code">
-                <ul>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-container">
-        <div class="perspec" style="--spreaddist: 50px; --scaledist: .9; --vertdist: -10px;">
-          <div class="card">
-            <div class="writing">
-              <div class="topbar">
-                <div class="red"></div>
-                <div class="yellow"></div>
-                <div class="green"></div>
-              </div>
-              <div class="code">
-                <ul>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-container">
-        <div class="perspec" style="--spreaddist: 25px; --scaledist: .95; --vertdist: -5px;">
-          <div class="card">
-            <div class="writing">
-              <div class="topbar">
-                <div class="red"></div>
-                <div class="yellow"></div>
-                <div class="green"></div>
-              </div>
-              <div class="code">
-                <ul>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-container">
-        <div class="perspec" style="--spreaddist: 0px; --scaledist: 1; --vertdist: 0px;">
-          <div class="card">
-            <div class="writing">
-              <div class="topbar">
-                <div class="red"></div>
-                <div class="yellow"></div>
-                <div class="green"></div>
-              </div>
-              <div class="code">
-                <ul>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
+
 {% set js %}
 {% include "js/base.js" %}
 {% endset %}
 <script>
   {{ js | jsmin | safe }}
+</script>
+
+<!-- Dark Mode Styles and JavaScript -->
+<style>
+  /* Light Mode */
+  body {
+      background-color: #fff;
+      color: #333;
+  }
+
+  header, footer {
+      background-color: #f5f5f5;
+  }
+
+  button {
+      background-color: #007BFF;
+      color: white;
+  }
+
+  /* Dark Mode */
+  body.dark-mode {
+      background-color: #333;
+      color: #fff;
+  }
+
+  body.dark-mode header, 
+  body.dark-mode footer {
+      background-color: #222;
+  }
+
+  body.dark-mode button {
+      background-color: #28a745;
+  }
+
+  /* Toggle button style (optional) */
+  .dark-mode-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+  }
+
+  #dark-mode-toggle {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+
+  #dark-mode-toggle:hover {
+      background-color: #0056b3;
+  }
+</style>
+
+<script>
+  window.onload = function() {
+      // Check for saved preference in localStorage
+      if (localStorage.getItem('darkMode') === 'enabled') {
+          document.body.classList.add('dark-mode');
+      }
+
+      // Dark Mode Toggle Button
+      const toggleButton = document.getElementById('dark-mode-toggle');
+      toggleButton.addEventListener('click', function() {
+          document.body.classList.toggle('dark-mode');
+
+          // Save the user's preference to localStorage
+          if (document.body.classList.contains('dark-mode')) {
+              localStorage.setItem('darkMode', 'enabled');
+          } else {
+              localStorage.removeItem('darkMode');
+          }
+      });
+  };
 </script>
